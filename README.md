@@ -30,6 +30,6 @@ Projeyle çalışmaya başlamak için aşağıdaki adımları izleyin:
 
 ## Lisans
 
-Bu proje [MIT lisansı](LICENSE) altında lisanslanmıştır.
+Bu proje [MIT lisansı](LICENCE) altında lisanslanmıştır.
 
 ---
