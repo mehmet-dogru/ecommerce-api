@@ -4,6 +4,7 @@ const helmet = require("helmet");
 const config = require("./config/index");
 const errorHandler = require("./middlewares/error-handler.middleware");
 const loaders = require("./loaders");
+const { customerRoutes, addressRoutes } = require("./routes");
 
 config();
 loaders();
@@ -16,6 +17,9 @@ app.use(helmet());
 app.get("/", (req, res) => {
   return res.status(200).json({ msg: "Hello from Customer Service" });
 });
+
+app.use("/", customerRoutes);
+app.use("/address", addressRoutes);
 
 app.use(errorHandler);
 
