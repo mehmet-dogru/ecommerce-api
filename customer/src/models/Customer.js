@@ -8,7 +8,7 @@ const CustomerSchema = new mongoose.Schema(
     phone: String,
     address: [
       {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Address",
         require: true,
       },
