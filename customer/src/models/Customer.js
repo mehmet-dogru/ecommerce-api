@@ -4,7 +4,6 @@ const CustomerSchema = new mongoose.Schema(
   {
     email: String,
     password: String,
-    salt: String,
     phone: String,
     address: [
       {
