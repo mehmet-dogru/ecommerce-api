@@ -6,6 +6,13 @@ class CustomerService extends BaseService {
     super(BaseModel);
   }
 
+  findById(id) {
+    return this.BaseModel.findById(id).populate({
+      path: "address",
+      select: "-createdAt -updatedAt",
+    });
+  }
+
   list(page, limit, where) {
     const customers = BaseModel.find(where || {})
       .limit(limit * 1)
