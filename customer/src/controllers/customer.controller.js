@@ -35,6 +35,10 @@ class CustomerController {
 
   async profile(req, res, next) {
     try {
+      const customer = await customerService.findById(req.userId);
+      if (!customer) return next(new ApiError("Profile not found", httpStatus.NOT_FOUND));
+
+      successResponse(res, httpStatus.OK, customer);
     } catch (err) {
       return next(new ApiError(err.message, httpStatus.BAD_REQUEST));
     }
