@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cors());
 app.use(helmet());
 
-app.get("/", (req, res) => {
+app.get("/whoami", (req, res) => {
   return res.status(200).json({ msg: "Hello from Products Service" });
 });
 
