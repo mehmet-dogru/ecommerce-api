@@ -43,6 +43,17 @@ class CustomerController {
       return next(new ApiError(err.message, httpStatus.BAD_REQUEST));
     }
   }
+
+  async wishlist(req, res, next) {
+    try {
+      const customer = await customerService.findById(req.userId).populate("wishlist");
+      if (!customer) return next(new ApiError("Customer not found, no data in wishlist", httpStatus.NOT_FOUND));
+
+      successResponse(res, httpStatus.OK, customer);
+    } catch (err) {
+      return next(new ApiError(err.message, httpStatus.BAD_REQUEST));
+    }
+  }
 }
 
 module.exports = new CustomerController();
