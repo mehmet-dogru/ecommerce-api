@@ -8,5 +8,6 @@ const validationProductSchema = require("../validations/product.validation");
 
 router.post("/", authenticate, validate(validationProductSchema.createSchema), productController.create);
 router.get("/list", authenticate, productController.getProducts);
+router.put("/wishlist/:id", authenticate, productController.wishlist);
 
 module.exports = router;
