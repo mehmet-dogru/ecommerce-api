@@ -3,6 +3,7 @@ const { passwordToHash, generateAccessToken } = require("../scripts/utils/helper
 const customerService = require("../services/customer.service");
 const ApiError = require("../responses/error.response");
 const successResponse = require("../responses/success.response");
+const rabbitmq = require("../message-broker/rabbitmq-connection");
 
 class CustomerController {
   async register(req, res, next) {
@@ -46,10 +47,39 @@ class CustomerController {
 
   async wishlist(req, res, next) {
     try {
-      const customer = await customerService.findById(req.userId).populate("wishlist");
-      if (!customer) return next(new ApiError("Customer not found, no data in wishlist", httpStatus.NOT_FOUND));
+      await rabbitmq.connect();
+      rabbitmq.consumeMessages("wishlist_queue", async (message) => {
+        try {
+          if (message.type === "addWishlist" && message.product) {
+            const customer = await customerService.findById(message.customerId).populate("wishlist");
+            if (!customer) {
+              console.error("Customer not found, unable to add product to wishlist");
+              return;
+            }
 
-      successResponse(res, httpStatus.OK, customer);
+            const newProduct = {
+              name: message.product.name,
+              desc: message.product.desc,
+              banner: message.product.banner,
+              type: message.product.type,
+              unit: message.product.unit,
+              price: message.product.price,
+              available: message.product.available,
+              suplier: message.product.suplier,
+              createdAt: message.product.createdAt,
+              updatedAt: message.product.updatedAt,
+            };
+
+            customer.wishlist.push(newProduct);
+
+            await customer.save();
+
+            successResponse(res, httpStatus.OK, { message: `Product added to wishlist` });
+          }
+        } catch (error) {
+          console.error("Error while adding product to wishlist:", error);
+        }
+      });
     } catch (err) {
       return next(new ApiError(err.message, httpStatus.BAD_REQUEST));
     }
