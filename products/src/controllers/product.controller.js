@@ -2,6 +2,7 @@ const httpStatus = require("http-status");
 const productService = require("../services/product.service");
 const ApiError = require("../responses/error.response");
 const successResponse = require("../responses/success.response");
+const rabbitmq = require("../message-broker/rabbitmq-connection");
 
 class ProductController {
   async create(req, res, next) {
@@ -19,6 +20,26 @@ class ProductController {
       const products = await productService.list(page, limit, {});
       if (!products) return next(new ApiError("Product not found", httpStatus.NOT_FOUND));
       successResponse(res, httpStatus.OK, products);
+    } catch (err) {
+      return next(new ApiError(err.message, httpStatus.BAD_REQUEST));
+    }
+  }
+
+  async wishlist(req, res, next) {
+    try {
+      const product = await productService.findById(req.params.id);
+      const customerId = req.userId;
+
+      const message = {
+        type: "addWishlist",
+        product,
+        customerId,
+      };
+
+      await rabbitmq.connect();
+      rabbitmq.publishMessage("wishlist_queue", message);
+
+      successResponse(res, httpStatus.OK, { message: `Sent message to customer service` });
     } catch (err) {
       return next(new ApiError(err.message, httpStatus.BAD_REQUEST));
     }
