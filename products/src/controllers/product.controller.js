@@ -37,7 +37,7 @@ class ProductController {
       };
 
       await rabbitmq.connect();
-      rabbitmq.publishMessage("wishlist_queue", message);
+      rabbitmq.publishMessage("CUSTOMER_SERVICE", message);
 
       successResponse(res, httpStatus.OK, { message: `Sent message to customer service` });
     } catch (err) {

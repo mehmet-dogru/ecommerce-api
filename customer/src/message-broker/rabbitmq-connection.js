@@ -24,6 +24,15 @@ class RabbitMQService {
       this.channel.ack(msg);
     });
   }
+
+  async initializeConsumer(queueName, callback) {
+    try {
+      await this.connect();
+      this.consumeMessages(queueName, callback);
+    } catch (error) {
+      console.error("Failed to initialize consumer:", error);
+    }
+  }
 }
 
 module.exports = new RabbitMQService();

@@ -11,6 +11,4 @@ router.post("/login", validate(validationCustomerSchema.loginSchema), customerCo
 
 router.get("/profile", authenticate, customerController.profile);
 
-router.put("/wishlist", authenticate, customerController.wishlist);
-
 module.exports = router;

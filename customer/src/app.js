@@ -5,6 +5,7 @@ const config = require("./config/index");
 const errorHandler = require("./middlewares/error-handler.middleware");
 const loaders = require("./loaders");
 const { customerRoutes, addressRoutes } = require("./routes");
+const initializeBackgroundProcesses = require("./scripts/utils/initialize-consumer");
 
 config();
 loaders();
@@ -20,6 +21,8 @@ app.get("/whoami", (req, res) => {
 
 app.use("/", customerRoutes);
 app.use("/address", addressRoutes);
+
+initializeBackgroundProcesses();
 
 app.use(errorHandler);
 
