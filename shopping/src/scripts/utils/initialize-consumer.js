@@ -1,14 +1,14 @@
 const rabbitmq = require("../../message-broker/rabbitmq-connection");
-const customerController = require("../../controllers/customer.controller");
+const cartController = require("../../controllers/cart.controller");
+const orderController = require("../../controllers/order.controller");
 
 const initializeBackgroundProcesses = () => {
   console.log("Consumer running");
 
-  rabbitmq.initializeConsumer("CUSTOMER_SERVICE", async (message) => {
+  rabbitmq.initializeConsumer("SHOPPING_SERVICE", async (message) => {
     try {
       switch (message.type) {
-        case "addWishlist":
-          customerController.addToWishlist(message);
+        case "":
           break;
         default:
           break;
