@@ -7,7 +7,7 @@ class RabbitMQService {
   }
 
   async connect() {
-    this.connection = await amqp.connect("amqp://localhost");
+    this.connection = await amqp.connect("amqp://rabbitmq-server:5672");
     this.channel = await this.connection.createChannel();
   }
 
