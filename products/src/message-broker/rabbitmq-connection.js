@@ -7,8 +7,12 @@ class RabbitMQService {
   }
 
   async connect() {
-    this.connection = await amqp.connect("amqp://rabbitmq-server:5672");
-    this.channel = await this.connection.createChannel();
+    if (this.connection) {
+      return this.connection;
+    } else {
+      this.connection = await amqp.connect("amqp://rabbitmq-server:5672");
+      this.channel = await this.connection.createChannel();
+    }
   }
 
   async publishMessage(queueName, message) {
