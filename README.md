@@ -30,6 +30,8 @@ Projeyle çalışmaya başlamak için aşağıdaki adımları izleyin:
 
 5. Tarayıcınızda `http://localhost` adresini ziyaret edin ve uygulamayı görüntüleyin.
 
+6. API Dokümantasyonu için [Postman](ECommerce-Microservice.postman_collection.json) tıklayınız.
+
 ## Lisans
 
 Bu proje [MIT lisansı](LICENCE) altında lisanslanmıştır.
