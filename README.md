@@ -1,6 +1,6 @@
-# E-Ticaret Mikroservis Projesi
+# ECommerce Microservice Project
 
-Bu proje, Node.js, Express, MongoDB, Docker ve Nginx kullanılarak oluşturulan bir e-ticaret mikroservis uygulamasını içerir. Mikroservis mimarisi, uygulamanızı küçük, bağımsız hizmetlere böler, böylece geliştirme ve ölçeklendirme kolaylaşır. Bu projede, temel e-ticaret işlevselliklerini uygular.
+Bu proje, Node.js, Express, MongoDB, Docker, RabbitMQ ve Nginx kullanılarak oluşturulan bir e-ticaret mikroservis uygulamasını içerir. Mikroservis mimarisi, uygulamanızı küçük, bağımsız hizmetlere böler, böylece geliştirme ve ölçeklendirme kolaylaşır. Bu projede, temel e-ticaret işlevselliklerini uygular.
 
 ## Özellikler
 
@@ -11,6 +11,8 @@ Bu proje, Node.js, Express, MongoDB, Docker ve Nginx kullanılarak oluşturulan 
 - **Veritabanı:** MongoDB, veri depolama için kullanılmıştır. Her mikroservis kendi veritabanına sahiptir.
 
 - **Docker ve Docker Compose:** Proje, Docker konteynerlerini kullanarak çalıştırılabilir ve ölçeklendirilebilir bir şekilde dağıtılabilir.
+
+- **RabbitMQ:** RabbitMQ, mikroservisler arasında iletişim sağlamak için kullanılmıştır. Mesaj kuyruğu sistemi, asenkron ve dağıtık işlemler için idealdir. 
 
 - **Nginx:** Nginx, mikroservislerin önünde bir ters proxy olarak kullanılır ve yük dengelemesi sağlar.
 
@@ -27,6 +29,8 @@ Projeyle çalışmaya başlamak için aşağıdaki adımları izleyin:
 4. Proje kök dizinine gidin ve `docker-compose up -d` komutunu çalıştırarak uygulamayı başlatın.
 
 5. Tarayıcınızda `http://localhost` adresini ziyaret edin ve uygulamayı görüntüleyin.
+
+6. API Dokümantasyonu için [Postman](ECommerce-Microservice.postman_collection.json) tıklayınız.
 
 ## Lisans
 
