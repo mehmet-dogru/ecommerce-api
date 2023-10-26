@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
-initializeBackgroundProcesses();
+
 
 app.get("/whoami", (req, res) => {
   return res.status(200).json({ msg: "Hello from Customer Service" });
@@ -23,6 +23,7 @@ app.get("/whoami", (req, res) => {
 app.use("/", customerRoutes);
 app.use("/address", addressRoutes);
 
+initializeBackgroundProcesses();
 
 app.use(errorHandler);
 
